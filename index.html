@@ -12,6 +12,11 @@
             box-sizing: border-box;
         }
 
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         body {
@@ -23,6 +28,15 @@
             scroll-behavior: smooth;
             position: relative;
             cursor: none;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* Prevent horizontal overflow on all sections */
+        section, .hero, .about, .team, .programs, .contact {
+            overflow-x: hidden;
+            max-width: 100vw;
+            box-sizing: border-box;
         }
 
         /* Hide cursor on all interactive elements */
@@ -75,6 +89,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         /* Header */
@@ -84,11 +100,14 @@
             padding: 1rem 0;
             position: fixed;
             width: 100%;
+            max-width: 100vw;
             top: 0;
+            left: 0;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
+            box-sizing: border-box;
         }
 
         header.scrolled {
@@ -157,7 +176,7 @@
             padding: 5px;
             z-index: 1001;
             position: absolute;
-            right: 0;
+            right: 20px;
         }
 
         .mobile-menu-btn span {
@@ -313,33 +332,45 @@
             opacity: 0;
             animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards,
                        logoFloat 4s ease-in-out 2s infinite;
-            background: white;
-            border-radius: 50%;
-            padding: 15px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .logo-background {
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            z-index: 1;
         }
 
         @keyframes logoFloat {
             0%, 100% { 
                 transform: translateY(0px) scale(1);
-                box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+                filter: drop-shadow(0 15px 40px rgba(0,0,0,0.2));
             }
             50% { 
                 transform: translateY(-8px) scale(1.02);
-                box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+                filter: drop-shadow(0 25px 50px rgba(0,0,0,0.25));
             }
         }
 
         .logo-image {
-            width: 450px;
-            height: 450px;
+            width: 600px;
+            height: 600px;
             object-fit: contain;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 100%;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 15px 40px rgba(0,0,0,0));
+            max-width: 90vw;
+            max-height: 90vw;
         }
 
         .hero-content {
@@ -356,19 +387,6 @@
                        textGlow 3s ease-in-out 1.3s infinite;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero h1::after {
-            content: '|';
-            display: inline-block;
-            animation: blink 1s infinite;
-            color: #81c784;
-            margin-left: 5px;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
         }
 
         .hero p {
@@ -689,20 +707,21 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
             margin-top: 50px;
-            max-width: 1000px;
+            max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+            padding: 0 20px;
         }
 
         .team-member {
             background: white;
-            padding: 40px;
-            border-radius: 30px;
+            padding: 50px 40px;
+            border-radius: 35px;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(30px);
@@ -742,18 +761,18 @@
         }
 
         .member-avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: linear-gradient(135deg, #4caf50, #8bc34a);
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
             color: white;
-            border: 4px solid white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
             position: relative;
@@ -793,21 +812,22 @@
         }
 
         .member-name {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #2e7d32;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .member-role {
             color: #66bb6a;
             font-size: 1.1rem;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         .member-bio {
-            font-size: 0.95rem;
-            line-height: 1.6;
+            font-size: 1rem;
+            line-height: 1.7;
             color: #555;
         }
 
@@ -957,12 +977,17 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
             .nav-links {
                 display: none;
             }
 
             .mobile-menu-btn {
                 display: flex;
+                right: 15px;
             }
 
             .mobile-nav {
@@ -980,9 +1005,16 @@
                 text-align: center;
             }
 
+            .logo-background {
+                width: 200px;
+                height: 200px;
+            }
+
             .logo-image {
                 width: 280px;
                 height: 280px;
+                max-width: 80vw;
+                max-height: 80vw;
             }
 
             .hero h1 {
@@ -1022,6 +1054,164 @@
             .contact-info {
                 flex-direction: column;
                 gap: 20px;
+            }
+        }
+
+        /* Tablet compatibility */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero-wrapper {
+                gap: 60px;
+            }
+
+            .logo-background {
+                width: 250px;
+                height: 250px;
+            }
+
+            .logo-image {
+                width: 350px;
+                height: 350px;
+                max-width: 70vw;
+                max-height: 70vw;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero p {
+                font-size: 1.4rem;
+            }
+
+            .about-features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .mobile-menu-btn {
+                right: 12px;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .logo-background {
+                width: 150px;
+                height: 150px;
+            }
+
+            .logo-image {
+                width: 220px;
+                height: 220px;
+                max-width: 75vw;
+                max-height: 75vw;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 30px;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .feature-card, .program-card {
+                padding: 20px;
+            }
+
+            .team-member {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Landscape mobile devices */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero {
+                padding: 100px 0 60px;
+                min-height: 100vh;
+            }
+
+            .hero-wrapper {
+                flex-direction: row;
+                gap: 40px;
+            }
+
+            .logo-background {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-image {
+                width: 160px;
+                height: 160px;
+                max-width: 25vw;
+                max-height: 25vw;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 320px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .mobile-menu-btn {
+                right: 10px;
+            }
+
+            .logo-background {
+                width: 120px;
+                height: 120px;
+            }
+
+            .logo-image {
+                width: 180px;
+                height: 180px;
+                max-width: 85vw;
+                max-height: 85vw;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
             }
         }
 
@@ -1092,6 +1282,34 @@
             z-index: 9999;
             transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* Pulse effect animation */
+        @keyframes pulseEffect {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        /* Instant pulse effect for mobile */
+        @keyframes instantPulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -1128,7 +1346,8 @@
         <div class="container">
             <div class="hero-wrapper">
                 <div class="hero-logo">
-                    <img src="/images/stemseeds.png" alt="STEMSeeds Logo" class="logo-image">
+                    <div class="logo-background"></div>
+                    <img src="images/stemseeds.png" alt="STEMSeeds Logo" class="logo-image">
                 </div>
                 <div class="hero-content">
                     <h1>STEMSeeds</h1>
@@ -1200,7 +1419,7 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="/images/images.png" alt="Nandish Panchal">
+                        <img src="images/images.png" alt="Nandish Panchal">
                     </div>
                     <div class="member-name">Nandish Panchal</div>
                     <div class="member-role">Chief Technology Officer</div>
@@ -1208,7 +1427,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="/images/images.png" alt="Mahi Patel">
+                        <img src="images/images.png" alt="Mahi Patel">
                     </div>
                     <div class="member-name">Mahi Patel</div>
                     <div class="member-role">Chief Marketing Officer</div>
@@ -1216,7 +1435,7 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="/images/images.png" alt="Dviti Soni">
+                        <img src="images/images.png" alt="Dviti Soni">
                     </div>
                     <div class="member-name">Dviti Soni</div>
                     <div class="member-role">Chief Financial Officer</div>
@@ -1458,19 +1677,32 @@
         });
 
         // ==========================================
-        // SIMPLE SCROLL PROTECTION
+        // IMPROVED SCROLL PROTECTION
         // ==========================================
         let mouseEffectsEnabled = true;
+        let scrolling = false;
         
         window.addEventListener('scroll', () => {
-            // Mouse effects = false during scroll
-            mouseEffectsEnabled = false;
+            if (!scrolling) {
+                scrolling = true;
+                mouseEffectsEnabled = false;
+                
+                // Reset all card transforms during scroll
+                const cards = document.querySelectorAll('.feature-card, .program-card, .team-member');
+                cards.forEach(card => {
+                    if (!card.hasAttribute('data-animating')) {
+                        card.style.transform = '';
+                        card.style.filter = '';
+                    }
+                });
+            }
             
-            // Wait 1 second after scrolling stops
+            // Re-enable mouse effects 300ms after scrolling stops
             clearTimeout(window.scrollTimeout);
             window.scrollTimeout = setTimeout(() => {
+                scrolling = false;
                 mouseEffectsEnabled = true;
-            }, 1000);
+            }, 300);
         });
         
         // Disable mouse effects during scroll-triggered animations
@@ -1482,8 +1714,10 @@
                     
                     // Re-enable mouse effects after animation completes
                     window.animationEndTimeout = setTimeout(() => {
-                        mouseEffectsEnabled = true;
-                    }, 1000); // Wait 1 second after scroll animation
+                        if (!scrolling) {
+                            mouseEffectsEnabled = true;
+                        }
+                    }, 800);
                 }
             });
         }, { rootMargin: '0px 0px -50px 0px' });
@@ -1537,6 +1771,62 @@
         // MOUSE TRAIL EFFECT
         // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
+            // Detect touch devices
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            if (isTouchDevice) {
+                // Enable cursor on touch devices initially
+                document.body.style.cursor = 'default';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.cursor = 'default';
+                });
+                
+                // Track if custom cursor should be hidden
+                let customCursorHidden = false;
+                
+                // Hide custom cursor and show pulse on touch
+                document.addEventListener('touchstart', (e) => {
+                    // Hide custom cursor elements if they exist
+                    if (!customCursorHidden) {
+                        const trailElements = document.querySelectorAll('[data-trail-element]');
+                        trailElements.forEach(el => {
+                            el.style.opacity = '0';
+                            el.style.visibility = 'hidden';
+                        });
+                        customCursorHidden = true;
+                    }
+                    
+                    const colors = getBlueColors();
+                    const touch = e.touches[0];
+                    
+                    // Add a central pulse effect that appears and disappears instantly
+                    const pulse = document.createElement('div');
+                    pulse.style.cssText = `
+                        position: fixed;
+                        left: ${touch.clientX - 14}px;
+                        top: ${touch.clientY - 14}px;
+                        width: 28px;
+                        height: 28px;
+                        background: radial-gradient(circle, ${colors.primary}, transparent 70%);
+                        border: 3px solid ${colors.secondary};
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 9999;
+                        animation: instantPulse 0.15s ease-out forwards;
+                    `;
+                    document.body.appendChild(pulse);
+                    
+                    // Remove pulse instantly after brief show
+                    setTimeout(() => {
+                        if (pulse && pulse.parentNode) {
+                            pulse.remove();
+                        }
+                    }, 150);
+                });
+                
+                return; // Exit here for touch devices
+            }
+            
             const trailElements = [];
             const maxTrailElements = 15; // Longer trail for better visibility
             let mouseX = 0;
@@ -1550,7 +1840,7 @@
             let actualMouseX = window.innerWidth / 2;
             let actualMouseY = window.innerHeight / 2;
             let mouseOnWebsite = false;
-            let hasMouseTouchedScreen = false;
+            let hasMouseTouchedScreen = true; // Enable from start for desktop
             
             // Detect when mouse enters the website for the first time
             document.addEventListener('mouseenter', (e) => {
@@ -1582,17 +1872,27 @@
             
             // Detect when mouse leaves the website
             document.addEventListener('mouseleave', (e) => {
-                mouseOnWebsite = false;
-                
-                // Completely hide trail and stop all animations when mouse leaves website
-                trailElements.forEach(trail => {
-                    trail.element.style.opacity = '0';
-                    trail.element.style.transform = 'scale(0)';
-                    trail.element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                });
-                
-                // Reset touch flag so trail will be hidden next time
-                hasMouseTouchedScreen = false;
+                // Only reset on actual mouse leave, not when dragging
+                if (e.relatedTarget === null) {
+                    mouseOnWebsite = false;
+                    
+                    // Completely hide trail and stop all animations when mouse leaves website
+                    trailElements.forEach(trail => {
+                        trail.element.style.opacity = '0';
+                        trail.element.style.transform = 'scale(0)';
+                        trail.element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    });
+                }
+            });
+            
+            // Capture mouse movement and position
+            document.addEventListener('mousemove', (e) => {
+                mouseOnWebsite = true;
+                hasMouseTouchedScreen = true;
+                actualMouseX = e.clientX;
+                actualMouseY = e.clientY;
+                mouseX = actualMouseX;
+                mouseY = actualMouseY;
             });
             
             // Also capture any existing mouse position
@@ -1609,6 +1909,7 @@
             for (let i = 0; i < maxTrailElements; i++) {
                 const trail = document.createElement('div');
                 trail.className = 'mouse-trail';
+                trail.setAttribute('data-trail-element', 'true');
                 trail.style.cssText = `
                     position: fixed;
                     width: ${22 - i * 2}px;
