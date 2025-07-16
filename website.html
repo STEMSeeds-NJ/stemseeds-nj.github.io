@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEMSeeds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d5016;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(129, 199, 132, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(102, 187, 106, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 15s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { 
+                background: 
+                    radial-gradient(circle at 20% 50%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(129, 199, 132, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(102, 187, 106, 0.05) 0%, transparent 50%);
+            }
+            33% { 
+                background: 
+                    radial-gradient(circle at 70% 30%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 30% 70%, rgba(129, 199, 132, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 90% 40%, rgba(102, 187, 106, 0.05) 0%, transparent 50%);
+            }
+            66% { 
+                background: 
+                    radial-gradient(circle at 10% 80%, rgba(76, 175, 80, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 60% 10%, rgba(129, 199, 132, 0.05) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 90%, rgba(102, 187, 106, 0.05) 0%, transparent 50%);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            background: rgba(46, 125, 50, 0.95);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            padding: 0.5rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            padding: 8px 16px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #66bb6a, #81c784);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .nav-links a:hover {
+            color: #c8e6c9;
+            transform: translateY(-3px) scale(1.05);
+            background: rgba(255,255,255,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            filter: brightness(1.1);
+        }
+
+        .nav-links a:active {
+            transform: translateY(-1px) scale(1.02);
+            transition: all 0.1s ease;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+            position: absolute;
+            right: 0;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            z-index: 1000;
+            padding-top: 80px;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .mobile-nav li {
+            margin: 30px 0;
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            display: block;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #43a047 100%);
+            color: white;
+            padding: 200px 0 150px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.2)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.15)"/><circle cx="50" cy="70" r="1" fill="rgba(255,255,255,0.25)"/><circle cx="10" cy="80" r="0.5" fill="rgba(255,255,255,0.3)"/><circle cx="90" cy="10" r="1" fill="rgba(255,255,255,0.2)"/></svg>') repeat;
+            animation: floatParticles 25s infinite linear;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            animation: pulseGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes floatParticles {
+            0% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(10px) rotate(90deg); }
+            50% { transform: translateY(-40px) translateX(-5px) rotate(180deg); }
+            75% { transform: translateY(-60px) translateX(15px) rotate(270deg); }
+            100% { transform: translateY(-100px) translateX(0px) rotate(360deg); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1) rotate(0deg); 
+                filter: hue-rotate(0deg);
+            }
+            33% { 
+                opacity: 0.6; 
+                transform: scale(1.03) rotate(120deg); 
+                filter: hue-rotate(60deg);
+            }
+            66% { 
+                opacity: 0.4; 
+                transform: scale(0.98) rotate(240deg); 
+                filter: hue-rotate(180deg);
+            }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-100px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards,
+                       textGlow 3s ease-in-out 1.3s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1::after {
+            content: '|';
+            display: inline-block;
+            animation: blink 1s infinite;
+            color: #81c784;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards,
+                       breathe 4s ease-in-out 1.6s infinite,
+                       rainbow 8s ease-in-out 2s infinite;
+        }
+
+        @keyframes rainbow {
+            0%, 100% { color: white; }
+            16% { color: #ffcdd2; }
+            33% { color: #f8bbd9; }
+            50% { color: #e1bee7; }
+            66% { color: #c5cae9; }
+            83% { color: #bbdefb; }
+        }
+
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,0.4), 0 0 30px rgba(255,255,255,0.2); }
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .hero-social {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.9s forwards;
+        }
+
+        .hero-social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-social-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .hero-social-icon:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .hero-social-icon:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px) scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-social-icon svg {
+            width: 24px;
+            height: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero-social-icon:hover svg {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #66bb6a 0%, #81c784 100%);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(102, 187, 106, 0.4);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0deg) scale(1);
+            }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #2e7d32;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s ease;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+            opacity: 0;
+            transform: translateY(30px);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card.visible {
+            animation: floatCard 6s ease-in-out infinite;
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-3px) rotate(0.3deg); }
+            50% { transform: translateY(-6px) rotate(0deg); }
+            75% { transform: translateY(-3px) rotate(-0.3deg); }
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(129, 199, 132, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.25);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2) rotate(5deg);
+            animation: bounce 0.6s ease-in-out;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .team-member {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(129, 199, 132, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .team-member:hover::before {
+            opacity: 1;
+        }
+
+        .team-member.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .team-member:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(76, 175, 80, 0.2);
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            border: 4px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .member-avatar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translate(-50%, -50%);
+        }
+
+        .team-member:hover .member-avatar::before {
+            width: 120px;
+            height: 120px;
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            z-index: 1;
+            position: relative;
+        }
+
+        .team-member:hover .member-avatar {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+            animation: wiggle 0.6s ease-in-out;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .member-role {
+            color: #66bb6a;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .member-bio {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Programs Section */
+        .programs {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .program-card {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(129, 199, 132, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:hover::before {
+            opacity: 1;
+        }
+
+        .program-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(76, 175, 80, 0.25);
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+        }
+
+        .program-card:hover .program-icon {
+            transform: scale(1.2) rotate(-5deg);
+            animation: bounce 0.6s ease-in-out;
+        }
+        
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover .program-icon {
+            transform: scale(1.2);
+        }
+
+        .program-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .contact-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #c8e6c9;
+        }
+
+        /* Footer */
+        footer {
+            background: #1b5e20;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: block;
+            }
+
+            .hero {
+                padding: 150px 0 100px;
+                min-height: 80vh;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .hero-social {
+                gap: 15px;
+            }
+
+            .hero-social-icon {
+                width: 45px;
+                height: 45px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        /* Scroll Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-80px) rotate(-5deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0) rotate(0deg);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(80px) rotate(5deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0) rotate(0deg);
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8) rotate(10deg);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .zoom-in.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .bounce-in {
+            opacity: 0;
+            transform: scale(0.3) translateY(-100px);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .bounce-in.visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #4caf50, #8bc34a);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroll-indicator"></div>
+
+    <header>
+        <nav class="container">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        <div class="mobile-nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>STEMSeeds</h1>
+                <p>Planting the seeds for the future</p>
+                <div class="hero-social">
+                    <a href="https://www.instagram.com/stemseeds.nj" target="_blank" class="hero-social-icon" title="Follow us on Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@stemseeds.nj" target="_blank" class="hero-social-icon" title="Follow us on TikTok">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/stemseedsnj" target="_blank" class="hero-social-icon" title="Connect with us on LinkedIn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                </div>
+                <a href="#about" class="cta-button">Discover Our Mission</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About STEMSeeds</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3 style="color: #2e7d32; font-size: 1.5rem; margin-bottom: 20px; font-weight: 600;">Our Mission</h3>
+                    <p>At STEMSeeds, our mission is to spark curiosity in young learners by making STEM education engaging, approachable, and youth-oriented. We strive to make it accessible for all by offering free learning opportunities. We aim to empower the next generation not only to learn STEM—but to envision their future in it. Through student-led teaching and community involvement, we hope to plant a more inclusive future in science, technology, engineering, and math.</p>
+                    
+                    <h3 style="color: #2e7d32; font-size: 1.5rem; margin-bottom: 20px; font-weight: 600; margin-top: 30px;">About Us</h3>
+                    <p>STEMSeeds is a student-led nonprofit founded by three high school students who are passionate about spreading access to STEM education. We work together to design and lead fun hands-on activities and programs to introduce youth to STEM.</p>
+                    <p>As co-founders, we work towards bringing a mix of strengths and perspectives that allow us to create unique experiences that reflect the creativity of STEMSeeds to plant seeds for the future.</p>
+                </div>
+                <div class="about-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔬</div>
+                        <h3>Hands-On Learning</h3>
+                        <p>Interactive experiments and activities that make STEM concepts come alive</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3>Inclusive Environment</h3>
+                        <p>Welcoming space for all children to explore and discover their potential</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌟</div>
+                        <h3>Youth Leadership</h3>
+                        <p>Led by high school students who understand what excites young learners</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>Educational Excellence</h3>
+                        <p>Curriculum designed to build strong foundations in STEM subjects</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="team">
+        <div class="container">
+            <h2 class="section-title">Meet The Founders</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="https://via.placeholder.com/100x100/4caf50/ffffff?text=NP" alt="Nandish Panchal" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span style="display: none;">👨‍💻</span>
+                    </div>
+                    <div class="member-name">Nandish Panchal</div>
+                    <div class="member-role">Chief Technology Officer</div>
+                    <div class="member-bio">Passionate about leveraging technology to create innovative educational experiences, Nandish leads our technical initiatives and develops digital tools that make STEM learning more engaging and accessible. With a strong background in programming and web development, he ensures STEMSeeds stays at the forefront of educational technology.</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="https://via.placeholder.com/100x100/4caf50/ffffff?text=MP" alt="Mahi Patel" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span style="display: none;">👩‍💼</span>
+                    </div>
+                    <div class="member-name">Mahi Patel</div>
+                    <div class="member-role">Chief Marketing Officer</div>
+                    <div class="member-bio">Creative communicator and storyteller, Mahi is dedicated to spreading the word about STEM education and building meaningful connections within our community. She develops our outreach strategies, manages our social media presence, and builds partnerships to expand our impact.</div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">
+                        <img src="https://via.placeholder.com/100x100/4caf50/ffffff?text=DS" alt="Dviti Soni" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <span style="display: none;">👩‍💰</span>
+                    </div>
+                    <div class="member-name">Dviti Soni</div>
+                    <div class="member-role">Chief Financial Officer</div>
+                    <div class="member-bio">Detail-oriented and strategic thinker, Dviti ensures our resources are used effectively to maximize impact and maintain our commitment to free, accessible STEM education. She manages our finances, develops sustainable funding strategies, and oversees the operational aspects of our programs.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="programs">
+        <div class="container">
+            <h2 class="section-title">Our Programs</h2>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">🧪</div>
+                    <div class="program-title">Science Explorers</div>
+                    <p>Fun experiments and discoveries that bring scientific concepts to life for young learners</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">💻</div>
+                    <div class="program-title">Tech Innovators</div>
+                    <p>Introduction to coding, robotics, and digital literacy in age-appropriate ways</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">🏗️</div>
+                    <div class="program-title">Engineering Builders</div>
+                    <p>Hands-on construction projects that teach engineering principles and problem-solving</p>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">📊</div>
+                    <div class="program-title">Math Masters</div>
+                    <p>Interactive math activities that make numbers fun and build strong mathematical foundations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title" style="color: white;">Get In Touch</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 30px;">Ready to plant the seeds of STEM learning? Connect with us today!</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span style="font-size: 1.5rem;">📧</span>
+                        <a href="mailto:stemseeds.nj@gmail.com">stemseeds.nj@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <span style="font-size: 1.5rem;">📱</span>
+                        <span>Follow us on social media</span>
+                    </div>
+                    <div class="contact-item">
+                        <span style="font-size: 1.5rem;">🌍</span>
+                        <span>New Jersey, USA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 STEMSeeds. All rights reserved. | Planting seeds for the future through STEM education</p>
+        </div>
+    </footer>
+
+    <script>
+        // ==========================================
+        // MOBILE MENU FUNCTIONALITY
+        // ==========================================
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileNav.classList.toggle('active');
+            document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close mobile menu when clicking on a link
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.mobile-menu-btn') && !e.target.closest('.mobile-nav')) {
+                mobileMenuBtn.classList.remove('active');
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ==========================================
+        // SMOOTH SCROLLING
+        // ==========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ==========================================
+        // SCROLL INDICATOR
+        // ==========================================
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.scroll-indicator').style.width = scrollPercent + '%';
+        });
+
+        // ==========================================
+        // SCROLL ANIMATIONS
+        // ==========================================
+        // Intersection Observer for scroll animations with staggered effects
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                        // Add extra animations for specific elements
+                        if (entry.target.classList.contains('feature-card')) {
+                            entry.target.style.animationDelay = `${index * 0.2}s`;
+                        }
+                        if (entry.target.classList.contains('team-member')) {
+                            entry.target.style.animationDelay = `${index * 0.3}s`;
+                        }
+                    }, index * 100); // Stagger the animations
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements with different animation classes
+        document.querySelectorAll('.section-title').forEach((el, index) => {
+            el.classList.add('fade-in');
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.about-text').forEach((el, index) => {
+            el.classList.add('slide-in-left');
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.feature-card').forEach((el, index) => {
+            el.classList.add(index % 2 === 0 ? 'zoom-in' : 'bounce-in');
+            el.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.team-member').forEach((el, index) => {
+            el.classList.add('slide-in-right');
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.program-card').forEach((el, index) => {
+            el.classList.add('fade-in');
+            el.style.animationDelay = `${index * 0.15}s`;
+            observer.observe(el);
+        });
+
+        document.querySelectorAll('.contact-item').forEach((el, index) => {
+            el.classList.add('bounce-in');
+            observer.observe(el);
+        });
+
+        // ==========================================
+        // HEADER SCROLL EFFECTS
+        // ==========================================
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(46, 125, 50, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #2e7d32 0%, #4caf50 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // ==========================================
+        // ENHANCED CARD ANIMATIONS
+        // ==========================================
+        const cards = document.querySelectorAll('.feature-card, .program-card, .team-member');
+        cards.forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+            
+            // Add floating animation with different delays only to feature cards
+            if (card.classList.contains('feature-card')) {
+                card.style.animationDelay = `${index * 0.5}s`;
+            }
+            
+            // Add gentle hover effect
+            card.addEventListener('mouseenter', function() {
+                if (this.classList.contains('team-member') || this.classList.contains('program-card')) {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                } else {
+                    this.style.transform = 'translateY(-10px) scale(1.03)';
+                }
+                this.style.filter = 'brightness(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+                this.style.filter = '';
+            });
+        });
+
+        // ==========================================
+        // INTERACTIVE EFFECTS
+        // ==========================================
+        // Parallax mouse tracking effect (reduced intensity)
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.feature-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach((card, index) => {
+                const speed = (index + 1) * 0.2; // Reduced from 0.5
+                const xMove = (x - 0.5) * speed;
+                const yMove = (y - 0.5) * speed;
+                
+                // Only apply to feature cards, not team or program cards
+                if (!card.style.transform.includes('translate')) {
+                    card.style.transform = `translate(${xMove}px, ${yMove}px)`;
+                }
+            });
+        });
+
+        // Sparkle effect on click
+        document.addEventListener('click', (e) => {
+            const sparkle = document.createElement('div');
+            sparkle.style.cssText = `
+                position: fixed;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                width: 10px;
+                height: 10px;
+                background: radial-gradient(circle, #4caf50, #81c784);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                animation: sparkleEffect 0.8s ease-out forwards;
+            `;
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 800);
+        });
+
+        // ==========================================
+        // SOCIAL ICON EFFECTS
+        // ==========================================
+        document.querySelectorAll('.hero-social-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', () => {
+                icon.style.transform = 'translateY(-3px) scale(1.1)';
+            });
+            icon.addEventListener('mouseleave', () => {
+                icon.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // ==========================================
+        // DYNAMIC CSS ANIMATIONS
+        // ==========================================
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkleEffect {
+                0% {
+                    transform: scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: scale(1.5) rotate(180deg);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) scale(1);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-100px) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
