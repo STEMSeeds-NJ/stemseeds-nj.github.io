@@ -337,16 +337,22 @@
             justify-content: center;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            width: 450px;
+            height: 450px;
+            overflow: visible;
         }
 
         .logo-background {
             position: absolute;
-            width: 360px;
-            height: 360px;
+            width: 410px;
+            height: 410px;
             background: white;
             border-radius: 50%;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         @keyframes logoFloat {
@@ -361,16 +367,19 @@
         }
 
         .logo-image {
-            width: 600px;
-            height: 600px;
+            width: 400px;
+            height: 400px;
             object-fit: contain;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 100%;
-            position: relative;
+            position: absolute;
             z-index: 2;
             filter: drop-shadow(0 15px 40px rgba(0,0,0,0));
-            max-width: 90vw;
-            max-height: 90vw;
+            max-width: 80vw;
+            max-height: 80vw;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .hero-content {
@@ -707,13 +716,39 @@
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 40px;
             margin-top: 50px;
             max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
             padding: 0 20px;
+        }
+
+        /* Portrait mode - 1 column for founders */
+        @media (orientation: portrait) {
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                max-width: 600px;
+            }
+        }
+
+        /* Landscape mode - 3 columns for founders */
+        @media (orientation: landscape) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+                max-width: 1200px;
+            }
+        }
+
+        /* Ensure 3 columns on desktop and large screens */
+        @media (min-width: 1025px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+            }
         }
 
         .team-member {
@@ -903,17 +938,6 @@
             transform: scale(1.2);
             animation: bounce 0.6s ease-in-out;
         }
-        
-
-        .program-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .program-card:hover .program-icon {
-            transform: scale(1.2);
-        }
 
         .program-title {
             font-size: 1.3rem;
@@ -1005,16 +1029,21 @@
                 text-align: center;
             }
 
+            .hero-logo {
+                width: 350px;
+                height: 350px;
+            }
+
             .logo-background {
-                width: 200px;
-                height: 200px;
+                width: 240px;
+                height: 240px;
             }
 
             .logo-image {
-                width: 280px;
-                height: 280px;
-                max-width: 80vw;
-                max-height: 80vw;
+                width: 290px;
+                height: 290px;
+                max-width: 75vw;
+                max-height: 75vw;
             }
 
             .hero h1 {
@@ -1042,10 +1071,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
             .programs-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -1063,16 +1088,21 @@
                 gap: 60px;
             }
 
+            .hero-logo {
+                width: 400px;
+                height: 400px;
+            }
+
             .logo-background {
-                width: 250px;
-                height: 250px;
+                width: 320px;
+                height: 320px;
             }
 
             .logo-image {
                 width: 350px;
                 height: 350px;
-                max-width: 70vw;
-                max-height: 70vw;
+                max-width: 65vw;
+                max-height: 65vw;
             }
 
             .hero h1 {
@@ -1088,9 +1118,23 @@
                 gap: 20px;
             }
 
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
+            .team-member {
+                padding: 20px;
+            }
+
+            .team-member img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .team-member h3 {
+                font-size: 1.1rem;
+                margin: 15px 0 8px;
+            }
+
+            .team-member p {
+                font-size: 0.9rem;
+                line-height: 1.4;
             }
         }
 
@@ -1108,16 +1152,21 @@
                 padding: 120px 0 80px;
             }
 
+            .hero-logo {
+                width: 300px;
+                height: 300px;
+            }
+
             .logo-background {
-                width: 150px;
-                height: 150px;
+                width: 200px;
+                height: 200px;
             }
 
             .logo-image {
-                width: 220px;
-                height: 220px;
-                max-width: 75vw;
-                max-height: 75vw;
+                width: 260px;
+                height: 260px;
+                max-width: 70vw;
+                max-height: 70vw;
             }
 
             .hero h1 {
@@ -1161,14 +1210,19 @@
                 gap: 40px;
             }
 
+            .hero-logo {
+                width: 220px;
+                height: 220px;
+            }
+
             .logo-background {
                 width: 120px;
                 height: 120px;
             }
 
             .logo-image {
-                width: 160px;
-                height: 160px;
+                width: 200px;
+                height: 200px;
                 max-width: 25vw;
                 max-height: 25vw;
             }
@@ -1194,14 +1248,19 @@
                 right: 10px;
             }
 
+            .hero-logo {
+                width: 260px;
+                height: 260px;
+            }
+
             .logo-background {
-                width: 120px;
-                height: 120px;
+                width: 140px;
+                height: 140px;
             }
 
             .logo-image {
-                width: 180px;
-                height: 180px;
+                width: 240px;
+                height: 240px;
                 max-width: 85vw;
                 max-height: 85vw;
             }
@@ -2074,49 +2133,7 @@
                 background: radial-gradient(circle, rgba(102, 187, 106, 0.7), rgba(76, 175, 80, 0.4));
             }
 
-            @keyframes sparkleEffect {
-                0% {
-                    transform: scale(0) rotate(0deg);
-                    opacity: 1;
-                }
-                50% {
-                    transform: scale(1.5) rotate(180deg);
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: scale(0) rotate(360deg);
-                    opacity: 0;
-                }
-            }
 
-            @keyframes pulseEffect {
-                0% {
-                    transform: scale(0);
-                    opacity: 1;
-                    border-width: 2px;
-                }
-                50% {
-                    transform: scale(1.5);
-                    opacity: 0.6;
-                    border-width: 1px;
-                }
-                100% {
-                    transform: scale(3);
-                    opacity: 0;
-                    border-width: 0px;
-                }
-            }
-            
-            @keyframes floatUp {
-                0% {
-                    transform: translateY(0) scale(1);
-                    opacity: 0.8;
-                }
-                100% {
-                    transform: translateY(-100px) scale(0);
-                    opacity: 0;
-                }
-            }
         `;
         document.head.appendChild(style);
     </script>
