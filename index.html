@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="google-site-verification" content="PYaaYhikwgNt2Tu7dT4gfa01EQ5SWLa9lWKMsAjgsSQ" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STEMSeeds</title>
     <style>
@@ -21,6 +22,16 @@
             overflow-x: hidden;
             scroll-behavior: smooth;
             position: relative;
+            cursor: none;
+        }
+
+        /* Hide cursor on all interactive elements */
+        *, *:hover, *:focus, *:active {
+            cursor: none !important;
+        }
+
+        button, a, input, textarea, select, [onclick], [role="button"] {
+            cursor: none !important;
         }
 
         body::before {
@@ -1373,41 +1384,153 @@
         // ==========================================
         // INTERACTIVE EFFECTS
         // ==========================================
-        // Parallax mouse tracking effect (reduced intensity)
+
+        // ==========================================
+        // PASTEL BLUE COLORS
+        // ==========================================
+        function getBlueColors() {
+            return {
+                primary: 'rgba(144, 202, 249, 0.9)',     // Light blue
+                secondary: 'rgba(100, 181, 246, 0.8)',   // Medium light blue
+                tertiary: 'rgba(187, 222, 251, 0.7)',    // Very light blue
+                trail1: 'rgba(144, 202, 249, 0.8)',      // Trail color 1
+                trail2: 'rgba(100, 181, 246, 0.6)'       // Trail color 2
+            };
+        }
+
+        // Clean pulse effect on click
+        document.addEventListener('click', (e) => {
+            const colors = getBlueColors();
+            
+            // Add a central pulse effect
+            const pulse = document.createElement('div');
+            pulse.style.cssText = `
+                position: fixed;
+                left: ${e.clientX - 14}px;
+                top: ${e.clientY - 14}px;
+                width: 28px;
+                height: 28px;
+                background: radial-gradient(circle, ${colors.primary}, transparent 70%);
+                border: 3px solid ${colors.secondary};
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                animation: pulseEffect 0.6s ease-out forwards;
+            `;
+            document.body.appendChild(pulse);
+            setTimeout(() => pulse.remove(), 600);
+        });
+
+        // ==========================================
+        // MOUSE TRAIL EFFECT
+        // ==========================================
+        const trailElements = [];
+        const maxTrailElements = 12;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        // Create trail elements
+        for (let i = 0; i < maxTrailElements; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            trail.style.cssText = `
+                position: fixed;
+                width: 22px;
+                height: 22px;
+                background: radial-gradient(circle, rgba(144, 202, 249, 0.8), rgba(100, 181, 246, 0.5));
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                opacity: 0;
+                transform: scale(0);
+                transition: all 0.15s ease-out;
+                box-shadow: 0 0 12px rgba(144, 202, 249, 0.5);
+            `;
+            document.body.appendChild(trail);
+            trailElements.push({
+                element: trail,
+                x: -100,
+                y: -100,
+                targetX: -100,
+                targetY: -100
+            });
+        }
+
+        // Update mouse position on existing mousemove event
+        let mouseTrailActive = true;
+        
+        // Enhanced mousemove that handles both parallax and trail
         document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Existing parallax effect for feature cards
             const cards = document.querySelectorAll('.feature-card');
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             
             cards.forEach((card, index) => {
-                const speed = (index + 1) * 0.2; // Reduced from 0.5
+                const speed = (index + 1) * 0.2;
                 const xMove = (x - 0.5) * speed;
                 const yMove = (y - 0.5) * speed;
                 
-                // Only apply to feature cards, not team or program cards
                 if (!card.style.transform.includes('translate')) {
                     card.style.transform = `translate(${xMove}px, ${yMove}px)`;
                 }
             });
+
+            // Update trail target positions
+            if (mouseTrailActive) {
+                trailElements[0].targetX = mouseX;
+                trailElements[0].targetY = mouseY;
+            }
         });
 
-        // Sparkle effect on click
-        document.addEventListener('click', (e) => {
-            const sparkle = document.createElement('div');
-            sparkle.style.cssText = `
-                position: fixed;
-                left: ${e.clientX}px;
-                top: ${e.clientY}px;
-                width: 10px;
-                height: 10px;
-                background: radial-gradient(circle, #4caf50, #81c784);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                animation: sparkleEffect 0.8s ease-out forwards;
-            `;
-            document.body.appendChild(sparkle);
-            setTimeout(() => sparkle.remove(), 800);
+        // Animate trail elements
+        function animateTrail() {
+            // Update each trail element to follow the previous one
+            for (let i = 0; i < trailElements.length; i++) {
+                const trail = trailElements[i];
+                
+                if (i === 0) {
+                    // First element follows mouse directly
+                    trail.x += (trail.targetX - trail.x) * 0.3;
+                    trail.y += (trail.targetY - trail.y) * 0.3;
+                } else {
+                    // Other elements follow the previous element
+                    const prevTrail = trailElements[i - 1];
+                    trail.x += (prevTrail.x - trail.x) * 0.25;
+                    trail.y += (prevTrail.y - trail.y) * 0.25;
+                }
+
+                // Calculate opacity and scale based on position in trail
+                const progress = 1 - (i / maxTrailElements);
+                const opacity = progress * 0.8;
+                const scale = progress * 0.8 + 0.2;
+
+                // Update element position and appearance
+                trail.element.style.left = (trail.x - 11) + 'px';
+                trail.element.style.top = (trail.y - 11) + 'px';
+                trail.element.style.opacity = opacity;
+                trail.element.style.transform = `scale(${scale})`;
+            }
+
+            requestAnimationFrame(animateTrail);
+        }
+
+        // Start the trail animation
+        animateTrail();
+
+        // Hide trail when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            trailElements.forEach(trail => {
+                trail.element.style.opacity = '0';
+            });
+        });
+
+        // Show trail when mouse enters window
+        document.addEventListener('mouseenter', () => {
+            mouseTrailActive = true;
         });
 
         // ==========================================
@@ -1427,6 +1550,18 @@
         // ==========================================
         const style = document.createElement('style');
         style.textContent = `
+            .mouse-trail {
+                filter: blur(0.5px);
+            }
+
+            .mouse-trail:nth-child(odd) {
+                background: radial-gradient(circle, rgba(76, 175, 80, 0.8), rgba(129, 199, 132, 0.3));
+            }
+
+            .mouse-trail:nth-child(even) {
+                background: radial-gradient(circle, rgba(102, 187, 106, 0.7), rgba(76, 175, 80, 0.4));
+            }
+
             @keyframes sparkleEffect {
                 0% {
                     transform: scale(0) rotate(0deg);
@@ -1439,6 +1574,24 @@
                 100% {
                     transform: scale(0) rotate(360deg);
                     opacity: 0;
+                }
+            }
+
+            @keyframes pulseEffect {
+                0% {
+                    transform: scale(0);
+                    opacity: 1;
+                    border-width: 2px;
+                }
+                50% {
+                    transform: scale(1.5);
+                    opacity: 0.6;
+                    border-width: 1px;
+                }
+                100% {
+                    transform: scale(3);
+                    opacity: 0;
+                    border-width: 0px;
                 }
             }
             
