@@ -5,6 +5,25 @@
     <meta name="google-site-verification" content="PYaaYhikwgNt2Tu7dT4gfa01EQ5SWLa9lWKMsAjgsSQ" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STEMSeeds</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="STEMSeeds is a student-led nonprofit making STEM education engaging, accessible, and youth-oriented for all. Free programs, hands-on learning, and inclusive community.">
+    <meta name="keywords" content="STEM, education, nonprofit, youth, science, technology, engineering, math, student-led, free programs, hands-on learning">
+    <meta name="author" content="STEMSeeds Team">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="STEMSeeds">
+    <meta property="og:description" content="Planting the seeds for the future. Free, student-led STEM education for all.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://stemseeds.org/">
+    <meta property="og:image" content="https://stemseeds.org/images/stemseeds.png">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="STEMSeeds">
+    <meta name="twitter:description" content="Planting the seeds for the future. Free, student-led STEM education for all.">
+    <meta name="twitter:image" content="https://stemseeds.org/images/stemseeds.png">
+    <!-- Google Fonts Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -17,7 +36,7 @@
             width: 100%;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        /* font loaded via <link> in <head> */
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -182,7 +201,7 @@
         .mobile-menu-btn span {
             width: 25px;
             height: 3px;
-            background: white;
+            background: transparent;
             margin: 3px 0;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 2px;
@@ -344,9 +363,9 @@
 
         .logo-background {
             position: absolute;
-            width: 410px;
-            height: 410px;
-            background: white;
+            width: calc(350px + 20px);
+            height: calc(350px + 20px);
+            background: transparent;
             border-radius: 50%;
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
             z-index: 1;
@@ -361,14 +380,14 @@
                 filter: drop-shadow(0 15px 40px rgba(0,0,0,0.2));
             }
             50% { 
-                transform: translateY(-8px) scale(1.02);
+                transform: translateY(-8px) scale(1);
                 filter: drop-shadow(0 25px 50px rgba(0,0,0,0.25));
             }
         }
 
         .logo-image {
-            width: 340px;
-            height: 340px;
+            width: 350px;
+            height: 350px;
             object-fit: contain;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 100%;
@@ -1035,8 +1054,8 @@
             }
 
             .logo-background {
-                width: 280px;
-                height: 280px;
+                width: calc(200px + 20px);
+                height: calc(200px + 20px);
             }
 
             .logo-image {
@@ -1094,8 +1113,8 @@
             }
 
             .logo-background {
-                width: 320px;
-                height: 320px;
+                width: calc(300px + 20px);
+                height: calc(300px + 20px);
             }
 
             .logo-image {
@@ -1158,8 +1177,8 @@
             }
 
             .logo-background {
-                width: 240px;
-                height: 240px;
+                width: calc(180px + 20px);
+                height: calc(180px + 20px);
             }
 
             .logo-image {
@@ -1216,8 +1235,8 @@
             }
 
             .logo-background {
-                width: 100px;
-                height: 100px;
+                width: calc(140px + 20px);
+                height: calc(140px + 20px);
             }
 
             .logo-image {
@@ -1254,8 +1273,8 @@
             }
 
             .logo-background {
-                width: 200px;
-                height: 200px;
+                width: calc(140px + 20px);
+                height: calc(140px + 20px);
             }
 
             .logo-image {
@@ -1406,7 +1425,7 @@
             <div class="hero-wrapper">
                 <div class="hero-logo">
                     <div class="logo-background"></div>
-                    <img src="images/stemseeds.png" alt="STEMSeeds Logo" class="logo-image">
+                    <img src="images/logo.png" alt="STEMSeeds Logo" class="logo-image" width="360" height="360">
                 </div>
                 <div class="hero-content">
                     <h1>STEMSeeds</h1>
@@ -1478,15 +1497,15 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="images/images.png" alt="Nandish Panchal">
+                        <img src="images/images.png" alt="Nandish Panchal" loading="lazy" width="120" height="120">
                     </div>
                     <div class="member-name">Nandish Panchal</div>
                     <div class="member-role">Chief Technology Officer</div>
-                    <div class="member-bio">Passionate about leveraging technology to create innovative educational experiences, Nandish leads our technical initiatives and develops digital tools that make STEM learning more engaging and accessible. With a strong background in programming and web development, he ensures STEMSeeds stays at the forefront of educational technology.</div>
+                    <div class="member-bio">As the founder and Chief Technology Officer of STEMSeeds, Nandish brings a love for innovation and a passion for making STEM fun and accessible. He has been exploring the world of technology since he was eight years old, and today he leads the digital direction of the nonprofit, building its online presence, developing systems, and turning ideas into reality. Nandish believes that technology can be a powerful bridge to learning, and he’s excited to help others cross it. His work helps shape STEMSeeds into a creative, youth-led space where future scientists, engineers, and inventors can take root.</div>
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="images/images.png" alt="Mahi Patel">
+                        <img src="images/images.png" alt="Mahi Patel" loading="lazy" width="120" height="120">
                     </div>
                     <div class="member-name">Mahi Patel</div>
                     <div class="member-role">Chief Marketing Officer</div>
@@ -1494,11 +1513,11 @@
                 </div>
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="images/images.png" alt="Dviti Soni">
+                        <img src="images/images.png" alt="Dviti Soni" loading="lazy" width="120" height="120">
                     </div>
                     <div class="member-name">Dviti Soni</div>
                     <div class="member-role">Chief Financial Officer</div>
-                    <div class="member-bio">Detail-oriented and strategic thinker, Dviti ensures our resources are used effectively to maximize impact and maintain our commitment to free, accessible STEM education. She manages our finances, develops sustainable funding strategies, and oversees the operational aspects of our programs.</div>
+                    <div class="member-bio">Bringing a thoughtful and mission-driven approach to her role as Chief Financial Officer. With a strong attention to detail and a passion for making education accessible, she ensures that financial resources are used efficiently to support and expand the organization’s impact. Dviti oversees budgeting, funding strategy, and operational planning, always keeping long-term sustainability in focus. Her work plays a vital role in bringing the nonprofit’s vision for free STEM education to life, one smart decision at a time.</div>
                 </div>
             </div>
         </div>
@@ -1561,7 +1580,28 @@
         </div>
     </footer>
 
+    <!-- Scroll-to-Top Button -->
+    <button id="scrollToTopBtn" title="Back to top" style="position:fixed;bottom:40px;right:40px;z-index:2000;opacity:0;pointer-events:none;background:linear-gradient(135deg,#4caf50,#81c784);color:white;border:none;border-radius:50%;width:56px;height:56px;box-shadow:0 4px 16px rgba(76,175,80,0.25);font-size:2rem;cursor:pointer;transition:background 0.3s,transform 0.2s,opacity 0.4s;outline:none;">
+        ↑
+    </button>
     <script>
+        // ==========================================
+        // SCROLL-TO-TOP BUTTON
+        // ==========================================
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.style.opacity = '1';
+                scrollToTopBtn.style.pointerEvents = 'auto';
+            } else {
+                scrollToTopBtn.style.opacity = '0';
+                scrollToTopBtn.style.pointerEvents = 'none';
+            }
+        });
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        // ...existing code...
         // ==========================================
         // MOBILE MENU FUNCTIONALITY
         // ==========================================
