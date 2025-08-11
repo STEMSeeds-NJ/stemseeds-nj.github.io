@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stemseeds-nj.github.io/sitemap.xml
