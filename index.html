@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta name="google-site-verification" content="PYaaYhikwgNt2Tu7dT4gfa01EQ5SWLa9lWKMsAjgsSQ" />
-    
     <!-- Title & Meta Description -->
     <title>STEMSeeds | Free Student-Led STEM Education in New Jersey</title>
     <meta name="description" content="STEMSeeds is a student-led nonprofit by three high school founders in NJ, making STEM education free, hands-on, and youth-driven for everyone.">
@@ -46,26 +45,13 @@
     <!-- <meta name="twitter:site" content="@stemseedsnj">
     <meta name="twitter:creator" content="@stemseedsnj"> -->
 
-    <!-- Theme Color -->
+    <!-- Theme Color for mobile -->
     <meta name="theme-color" content="#2e7d32">
 
-    <!-- Favicons -->
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-
-    <!-- Fonts -->
+    <!-- Google Fonts Optimization -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Preload Key Images -->
-    <link rel="preload" href="/images/logo.png" as="image">
-    <link rel="preload" href="/images/images.png" as="image">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -99,6 +85,34 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            /* Prevent all text selection globally */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Prevent text selection highlighting */
+        *::selection {
+            background: transparent;
+        }
+
+        *::-moz-selection {
+            background: transparent;
+        }
+
+        html {
+            /* Prevent text selection on HTML element */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
         }
 
         img {
@@ -115,11 +129,6 @@
             -o-user-drag: none;
         }
 
-        html {
-            overflow-x: hidden;
-            width: 100%;
-        }
-
         /* font loaded via <link> in <head> */
 
         body {
@@ -133,6 +142,12 @@
             cursor: none;
             width: 100%;
             max-width: 100vw;
+            /* Prevent text selection */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-touch-callout: none;
         }
 
         /* Prevent horizontal overflow on all sections */
@@ -148,116 +163,6 @@
         }
 
         button, a, input, textarea, select, [onclick], [role="button"] {
-            cursor: none !important;
-        }
-
-        /* Hide scrolling cursors and arrows */
-        html, html:hover, html:active {
-            cursor: none !important;
-        }
-
-        body::-webkit-scrollbar {
-            cursor: none !important;
-        }
-
-        /* Hide cursor during scrolling states */
-        body:hover, body:active, body:focus {
-            cursor: none !important;
-        }
-
-        /* Prevent any scroll-related cursor changes */
-        ::-webkit-scrollbar, ::-webkit-scrollbar-track, ::-webkit-scrollbar-thumb {
-            cursor: none !important;
-        }
-
-        /* Force cursor none on all scroll events and override all cursor types */
-        * {
-            cursor: none !important;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        /* Override specific cursor types that browsers might force */
-        *:hover, *:active, *:focus, *:visited, *:link {
-            cursor: none !important;
-        }
-
-        /* Prevent pan cursors during drag operations */
-        body, html {
-            cursor: none !important;
-            -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
-        }   
-
-        /* Override resize cursors */
-        *:not(input):not(textarea) {
-            resize: none !important;
-            cursor: none !important;
-        }
-
-        /* Force override all possible cursor states */
-        body * {
-            cursor: none !important;
-        }
-
-        /* Prevent cursor changes during selection */
-        ::selection {
-            cursor: none !important;
-        }
-
-        ::-moz-selection {
-            cursor: none !important;
-        }
-
-        /* Additional pan and move cursor overrides */
-        * {
-            cursor: none !important;
-        }
-
-        /* Specific overrides for pan cursors */
-        html * {
-            cursor: none !important;
-        }
-
-        /* Override all possible cursor values */
-        *[style*="cursor"] {
-            cursor: none !important;
-        }
-
-        /* Prevent specific cursor types */
-        * {
-            cursor: none !important;
-        }
-
-        *::-webkit-scrollbar {
-            cursor: none !important;
-        }
-
-        /* Force override using CSS custom properties */
-        :root {
-            --cursor: none !important;
-        }
-
-        * {
-            cursor: var(--cursor) !important;
-        }
-
-        /* Override any inline styles */
-        [style*="cursor"] {
-            cursor: none !important;
-        }
-
-        /* Prevent browser default cursors on specific actions */
-        * {
-            cursor: none !important;
-        }
-
-        /* Target specific pseudo-classes that might show cursors */
-        *:not(:disabled):not([readonly]) {
             cursor: none !important;
         }
 
@@ -553,7 +458,7 @@
             width: 400px;
             height: 400px;
             overflow: visible;
-            /* Disable selection on container */
+            /* Comprehensive logo container protection */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -591,10 +496,6 @@
             object-fit: contain;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 100%;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-            background: transparent;
             position: absolute;
             z-index: 2;
             filter: drop-shadow(0 15px 40px rgba(0,0,0,0));
@@ -603,6 +504,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            /* Comprehensive logo protection */
+            border: none !important;
+            outline: none !important;
+            /* Disable selection on container */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
             /* Disable selection/dragging */
             user-select: none;
             -webkit-user-select: none;
@@ -1281,6 +1191,7 @@
             .hero-logo {
                 width: 300px;
                 height: 300px;
+                /* Comprehensive logo container protection */
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1298,10 +1209,9 @@
                 height: 200px;
                 max-width: 60vw;
                 max-height: 60vw;
+                /* Comprehensive logo protection */
                 border: none !important;
                 outline: none !important;
-                box-shadow: none !important;
-                background: transparent;
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1358,12 +1268,12 @@
             .hero-logo {
                 width: 350px;
                 height: 350px;
+                /* Comprehensive logo container protection */
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
                 -ms-user-select: none;
                 pointer-events: none;
-            }
             }
 
             .logo-background {
@@ -1376,10 +1286,9 @@
                 height: 300px;
                 max-width: 60vw;
                 max-height: 60vw;
+                /* Comprehensive logo protection */
                 border: none !important;
                 outline: none !important;
-                box-shadow: none !important;
-                background: transparent;
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1422,7 +1331,7 @@
                 font-size: 0.9rem;
                 line-height: 1.4;
             }
-        
+        }
 
         /* Small mobile devices */
         @media (max-width: 480px) {
@@ -1441,6 +1350,7 @@
             .hero-logo {
                 width: 260px;
                 height: 260px;
+                /* Comprehensive logo container protection */
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1458,10 +1368,9 @@
                 height: 180px;
                 max-width: 55vw;
                 max-height: 55vw;
+                /* Comprehensive logo protection */
                 border: none !important;
                 outline: none !important;
-                box-shadow: none !important;
-                background: transparent;
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1517,6 +1426,7 @@
             .hero-logo {
                 width: 180px;
                 height: 180px;
+                /* Comprehensive logo container protection */
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1534,10 +1444,9 @@
                 height: 140px;
                 max-width: 20vw;
                 max-height: 20vw;
+                /* Comprehensive logo protection */
                 border: none !important;
                 outline: none !important;
-                box-shadow: none !important;
-                background: transparent;
                 user-select: none;
                 -webkit-user-select: none;
                 -moz-user-select: none;
@@ -1573,11 +1482,6 @@
             .hero-logo {
                 width: 220px;
                 height: 220px;
-                user-select: none;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                pointer-events: none;
             }
 
             .logo-background {
@@ -1590,19 +1494,6 @@
                 height: 140px;
                 max-width: 65vw;
                 max-height: 65vw;
-                border: none !important;
-                outline: none !important;
-                box-shadow: none !important;
-                background: transparent;
-                user-select: none;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                pointer-events: none;
-                -webkit-user-drag: none;
-                -khtml-user-drag: none;
-                -moz-user-drag: none;
-                -o-user-drag: none;
             }
 
             .hero h1 {
@@ -1709,82 +1600,6 @@
                 opacity: 0;
             }
         }
-
-        /* Scroll effect animation */
-        @keyframes scrollPulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-                box-shadow: 0 0 20px rgba(76, 175, 80, 0.8);
-            }
-            50% {
-                transform: scale(1.5);
-                opacity: 0.6;
-                box-shadow: 0 0 30px rgba(76, 175, 80, 0.6);
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-                box-shadow: 0 0 40px rgba(76, 175, 80, 0.3);
-            }
-        }
-
-        /* Drag effect animation */
-        @keyframes dragGlow {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                box-shadow: 0 0 15px rgba(255, 152, 0, 0.8);
-            }
-            100% {
-                transform: scale(1.8);
-                opacity: 0;
-                box-shadow: 0 0 35px rgba(255, 152, 0, 0.4);
-            }
-        }
-
-        /* Scroll trail effect */
-        @keyframes scrollTrail {
-            0% {
-                background: radial-gradient(circle, rgba(76, 175, 80, 0.9), rgba(56, 142, 60, 0.7));
-                transform: scale(1);
-            }
-            100% {
-                background: radial-gradient(circle, rgba(76, 175, 80, 0.3), rgba(56, 142, 60, 0.1));
-                transform: scale(0.8);
-            }
-        }
-
-        /* Drag trail effect */
-        @keyframes dragTrail {
-            0% {
-                background: radial-gradient(circle, rgba(255, 152, 0, 0.9), rgba(245, 124, 0, 0.7));
-                transform: scale(1);
-            }
-            100% {
-                background: radial-gradient(circle, rgba(255, 152, 0, 0.3), rgba(245, 124, 0, 0.1));
-                transform: scale(0.8);
-            }
-        }
-
-        /* Selection animation */
-        @keyframes selectionRipple {
-            0% {
-                transform: scale(1);
-                opacity: 0.9;
-                box-shadow: 0 0 20px rgba(63, 81, 181, 0.8);
-            }
-            50% {
-                transform: scale(1.4);
-                opacity: 0.6;
-                box-shadow: 0 0 30px rgba(63, 81, 181, 0.6);
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-                box-shadow: 0 0 40px rgba(63, 81, 181, 0.3);
-            }
-        }
     </style>
 </head>
 
@@ -1822,7 +1637,7 @@
             <div class="hero-wrapper">
                 <div class="hero-logo">
                     <div class="logo-background"></div>
-                    <img src="images/logo.png" alt="STEMSeeds Logo" class="logo-image" width="360" height="360" draggable="false">
+                    <img src="images/logo.png" alt="STEMSeeds Logo" class="logo-image" width="360" height="360">
                 </div>
                 <div class="hero-content">
                     <h1>STEMSeeds</h1>
@@ -2087,24 +1902,10 @@
             isScrolling = true;
             mouseEffectsEnabled = false;
             
-            // Update scroll indicator with more accurate calculation
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const documentHeight = Math.max(
-                document.body.scrollHeight,
-                document.body.offsetHeight,
-                document.documentElement.clientHeight,
-                document.documentElement.scrollHeight,
-                document.documentElement.offsetHeight
-            );
-            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-            const scrollableHeight = documentHeight - windowHeight;
-            
-            // Ensure we don't divide by zero and cap at 100%
-            let scrollPercent = 0;
-            if (scrollableHeight > 0) {
-                scrollPercent = Math.min((scrollTop / scrollableHeight) * 100, 100);
-            }
-            
+            // Update scroll indicator
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
             document.querySelector('.scroll-indicator').style.width = scrollPercent + '%';
             
             // Update scroll to top button
@@ -2264,10 +2065,6 @@
         }
 
         document.addEventListener('click', (e) => {
-            // Prevent double animations on touch devices
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (isTouchDevice) return;
-            
             const colors = getBlueColors();
             
             const pulse = document.createElement('div');
@@ -2342,7 +2139,7 @@
             }
             
             const trailElements = [];
-            const maxTrailElements = 5;
+            const maxTrailElements = 1;
             let mouseX = 0;
             let mouseY = 0;
             let mouseOnWebsite = false;
@@ -2439,7 +2236,7 @@
                     trailElements.forEach((trail, index) => {
                         const progress = 1 - index / maxTrailElements;
                         
-                        trail.element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                        trail.element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                         trail.element.style.opacity = progress * 1.0;
                         trail.element.style.transform = `scale(${progress * 0.9 + 0.1})`;
                     });
@@ -2482,270 +2279,6 @@
         });
 
         // ==========================================
-        // SCROLL AND DRAG EFFECTS FOR MOUSE ANIMATION
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            let scrollAnimationActive = true;
-            let dragAnimationActive = true;
-            let isDragging = false;
-            let lastScrollTime = 0;
-            let lastScrollDirection = null;
-
-            // Scroll effect
-            document.addEventListener('wheel', function(e) {
-                if (!scrollAnimationActive || !mouseOnWebsite || !hasMouseTouchedScreen) return;
-                
-                const currentTime = Date.now();
-                const scrollDirection = e.deltaY > 0 ? 'down' : 'up';
-                
-                // Throttle scroll events
-                if (currentTime - lastScrollTime < 100) return;
-                lastScrollTime = currentTime;
-                lastScrollDirection = scrollDirection;
-
-                // Create scroll effect at mouse position
-                const scrollEffect = document.createElement('div');
-                scrollEffect.style.cssText = `
-                    position: fixed;
-                    left: ${mouseX - 15}px;
-                    top: ${mouseY - 15}px;
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 9999;
-                    animation: scrollPulse 0.6s ease-out forwards;
-                `;
-                document.body.appendChild(scrollEffect);
-
-                // Apply scroll trail effect to existing trail elements
-                trailElements.forEach((trail, index) => {
-                    if (index < 10) { // Apply to first 10 trail elements
-                        trail.element.style.animation = 'scrollTrail 0.4s ease-out';
-                        setTimeout(() => {
-                            trail.element.style.animation = '';
-                        }, 400);
-                    }
-                });
-
-                // Remove scroll effect element
-                setTimeout(() => {
-                    if (scrollEffect && scrollEffect.parentNode) {
-                        scrollEffect.remove();
-                    }
-                }, 600);
-            });
-
-            // Drag effect
-            let dragStartX = 0;
-            let dragStartY = 0;
-
-            document.addEventListener('mousedown', function(e) {
-                if (!dragAnimationActive || !mouseOnWebsite || !hasMouseTouchedScreen) return;
-                
-                isDragging = true;
-                dragStartX = e.clientX;
-                dragStartY = e.clientY;
-
-                // Apply initial drag effect to trail elements
-                trailElements.forEach((trail, index) => {
-                    if (index < 8) { // Apply to first 8 trail elements
-                        trail.element.style.animation = 'dragTrail 0.3s ease-out';
-                    }
-                });
-            });
-
-            document.addEventListener('mousemove', function(e) {
-                if (!isDragging || !dragAnimationActive || !mouseOnWebsite || !hasMouseTouchedScreen) return;
-
-                const dragDistance = Math.sqrt(
-                    Math.pow(e.clientX - dragStartX, 2) + Math.pow(e.clientY - dragStartY, 2)
-                );
-
-                // Only show drag effects if mouse has moved significantly
-                if (dragDistance > 10) {
-                    // Create drag glow effect
-                    const dragEffect = document.createElement('div');
-                    dragEffect.style.cssText = `
-                        position: fixed;
-                        left: ${e.clientX - 12}px;
-                        top: ${e.clientY - 12}px;
-                        width: 24px;
-                        height: 24px;
-                        border-radius: 50%;
-                        pointer-events: none;
-                        z-index: 9999;
-                        animation: dragGlow 0.5s ease-out forwards;
-                    `;
-                    document.body.appendChild(dragEffect);
-
-                    // Remove drag effect element
-                    setTimeout(() => {
-                        if (dragEffect && dragEffect.parentNode) {
-                            dragEffect.remove();
-                        }
-                    }, 500);
-                }
-            });
-
-            document.addEventListener('mouseup', function(e) {
-                if (!isDragging) return;
-                
-                isDragging = false;
-
-                // Reset trail animations
-                trailElements.forEach(trail => {
-                    trail.element.style.animation = '';
-                });
-            });
-
-            // Also handle drag end when mouse leaves the document
-            document.addEventListener('mouseleave', function(e) {
-                if (isDragging) {
-                    isDragging = false;
-                    trailElements.forEach(trail => {
-                        trail.element.style.animation = '';
-                    });
-                }
-            });
-
-            // Touch events for mobile drag simulation
-            let touchStartX = 0;
-            let touchStartY = 0;
-            let isTouchDragging = false;
-
-            document.addEventListener('touchstart', function(e) {
-                if (e.touches.length === 1) {
-                    touchStartX = e.touches[0].clientX;
-                    touchStartY = e.touches[0].clientY;
-                    isTouchDragging = true;
-                }
-            });
-
-            document.addEventListener('touchmove', function(e) {
-                if (!isTouchDragging || e.touches.length !== 1) return;
-
-                const touch = e.touches[0];
-                const dragDistance = Math.sqrt(
-                    Math.pow(touch.clientX - touchStartX, 2) + Math.pow(touch.clientY - touchStartY, 2)
-                );
-
-                if (dragDistance > 15) {
-                    // Create touch drag effect
-                    const touchDragEffect = document.createElement('div');
-                    touchDragEffect.style.cssText = `
-                        position: fixed;
-                        left: ${touch.clientX - 10}px;
-                        top: ${touch.clientY - 10}px;
-                        width: 20px;
-                        height: 20px;
-                        border-radius: 50%;
-                        pointer-events: none;
-                        z-index: 9999;
-                        animation: dragGlow 0.4s ease-out forwards;
-                    `;
-                    document.body.appendChild(touchDragEffect);
-
-                    setTimeout(() => {
-                        if (touchDragEffect && touchDragEffect.parentNode) {
-                            touchDragEffect.remove();
-                        }
-                    }, 400);
-                }
-            });
-
-            document.addEventListener('touchend', function(e) {
-                isTouchDragging = false;
-            });
-        });
-
-        // ==========================================
-        // CUSTOM DRAG/SELECT ANIMATIONS FOR DESKTOP
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-            if (isTouchDevice) return; // Only for desktop
-
-            let isSelecting = false;
-            let selectionStartX = 0;
-            let selectionStartY = 0;
-            let selectionAnimationActive = true;
-
-            // Create selection visual feedback
-            function createSelectionRipple(x, y) {
-                const ripple = document.createElement('div');
-                ripple.style.cssText = `
-                    position: fixed;
-                    left: ${x - 18}px;
-                    top: ${y - 18}px;
-                    width: 36px;
-                    height: 36px;
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 9999;
-                    animation: selectionRipple 0.8s ease-out forwards;
-                `;
-                document.body.appendChild(ripple);
-
-                setTimeout(() => {
-                    if (ripple && ripple.parentNode) {
-                        ripple.remove();
-                    }
-                }, 800);
-            }
-
-            // Handle text selection events (minimal functionality since selection is disabled)
-            document.addEventListener('selectstart', function(e) {
-                if (!selectionAnimationActive) return;
-                
-                isSelecting = true;
-                selectionStartX = e.clientX || mouseX;
-                selectionStartY = e.clientY || mouseY;
-
-                // Create ripple effect at selection start (for any enabled selection areas)
-                createSelectionRipple(selectionStartX, selectionStartY);
-            });
-
-            document.addEventListener('selectionchange', function() {
-                if (!selectionAnimationActive || !isSelecting) return;
-
-                const selection = window.getSelection();
-                if (selection.toString().length > 0) {
-                    // Text is being selected, enhance trail elements
-                    if (typeof trailElements !== 'undefined') {
-                        trailElements.forEach((trail, index) => {
-                            if (index < 12) {
-                                trail.element.style.background = 'radial-gradient(circle, rgba(63, 81, 181, 0.9), rgba(48, 63, 159, 0.7))';
-                                trail.element.style.boxShadow = '0 0 20px rgba(63, 81, 181, 0.8)';
-                            }
-                        });
-                    }
-                } else {
-                    // Reset trail elements when selection ends
-                    if (typeof trailElements !== 'undefined') {
-                        trailElements.forEach((trail, index) => {
-                            trail.element.style.background = `radial-gradient(circle, rgba(144, 202, 249, ${0.95 - index * 0.1}), rgba(100, 181, 246, ${0.8 - index * 0.08}))`;
-                            trail.element.style.boxShadow = `0 0 18px rgba(144, 202, 249, ${0.7 - index * 0.1})`;
-                        });
-                    }
-                    isSelecting = false;
-                }
-            });
-
-            // Handle mouse up to end selection
-            document.addEventListener('mouseup', function(e) {
-                if (!isSelecting) return;
-
-                // Create end ripple effect (for any enabled selection areas)
-                if (selectionAnimationActive) {
-                    setTimeout(() => {
-                        createSelectionRipple(e.clientX, e.clientY);
-                    }, 100);
-                }
-            });
-        });
-
-        // ==========================================
         // LOGO HOVER EFFECTS
         // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
@@ -2785,84 +2318,6 @@
         });
 
         // ==========================================
-        // CURSOR HIDING DURING SCROLL EVENTS
-        // ==========================================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Force cursor none during any scroll event
-            let scrollTimeout;
-
-            function hideCursorDuringScroll() {
-                document.body.style.cursor = 'none';
-                document.documentElement.style.cursor = 'none';
-                
-                // Force override on all elements
-                document.querySelectorAll('*').forEach(el => {
-                    el.style.cursor = 'none';
-                });
-            }
-
-            function forceHideCursor() {
-                document.body.style.cursor = 'none';
-                document.documentElement.style.cursor = 'none';
-                
-                // Override cursor on all elements with maximum force
-                const allElements = document.querySelectorAll('*');
-                allElements.forEach(el => {
-                    el.style.cursor = 'none';
-                    el.style.setProperty('cursor', 'none', 'important');
-                    
-                    // Remove any cursor-related attributes
-                    if (el.style.cursor && el.style.cursor !== 'none') {
-                        el.style.cursor = 'none';
-                    }
-                    
-                    // Override any computed styles
-                    const computedStyle = window.getComputedStyle(el);
-                    if (computedStyle.cursor && computedStyle.cursor !== 'none') {
-                        el.style.setProperty('cursor', 'none', 'important');
-                    }
-                });
-
-                // Override document styles
-                document.body.style.setProperty('cursor', 'none', 'important');
-                document.documentElement.style.setProperty('cursor', 'none', 'important');
-                
-                // Force override on specific elements that might show pan cursors
-                const problematicElements = document.querySelectorAll('img, svg, canvas, video, iframe');
-                problematicElements.forEach(el => {
-                    el.style.setProperty('cursor', 'none', 'important');
-                    el.style.setProperty('-webkit-user-drag', 'none', 'important');
-                    el.style.setProperty('user-drag', 'none', 'important');
-                });
-            }
-
-            // Hide cursor on all scroll-related events
-            document.addEventListener('scroll', hideCursorDuringScroll, { passive: true });
-            document.addEventListener('wheel', hideCursorDuringScroll, { passive: true });
-            window.addEventListener('scroll', hideCursorDuringScroll, { passive: true });
-
-            // Prevent pan cursors during drag operations
-            document.addEventListener('mousedown', forceHideCursor);
-            document.addEventListener('mousemove', forceHideCursor);
-            document.addEventListener('mouseup', forceHideCursor);
-            document.addEventListener('dragstart', forceHideCursor);
-            document.addEventListener('drag', forceHideCursor);
-            document.addEventListener('dragend', forceHideCursor);
-
-            // Also hide cursor on mouse events to override any browser defaults
-            document.addEventListener('mousemove', function() {
-                document.body.style.cursor = 'none';
-                document.documentElement.style.cursor = 'none';
-            });
-
-            // Continuously force cursor hiding
-            setInterval(forceHideCursor, 100);
-
-            // Initial cursor hiding
-            forceHideCursor();
-        });
-
-        // ==========================================
         // INITIALIZATION
         // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
@@ -2871,7 +2326,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
